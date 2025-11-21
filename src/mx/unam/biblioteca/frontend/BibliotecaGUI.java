@@ -43,10 +43,22 @@ public final class BibliotecaGUI extends JFrame {
                         biblioteca.getListaUsuarios(), this);
                 mostrarPanel(pdl);
             }
-            // case 6 -> biblioteca.registrarUsuario();
-            // case 7 -> biblioteca.mostrarUsuarios();
-            // case 8 -> biblioteca.buscarUsuario();
-            // case 9 -> JOptionPane.showMessageDialog(null, "Saliendo...");
+            case 6 -> {
+                PanelRegistrarUsuario pru = new PanelRegistrarUsuario(biblioteca.getListaUsuarios(), this);
+                mostrarPanel(pru);
+            }
+            case 7 -> {
+                PanelMostrarUsuarios pmu = new PanelMostrarUsuarios(biblioteca.getListaUsuarios(), this);
+                mostrarPanel(pmu);
+            }
+            case 8 -> {
+                PanelBuscarUsuario pbu = new PanelBuscarUsuario(biblioteca.getListaUsuarios(), this);
+                mostrarPanel(pbu);
+            }
+            case 9 -> {
+                JOptionPane.showMessageDialog(null, "Saliendo...");
+                System.exit(0);
+            }
             default -> JOptionPane.showMessageDialog(null, "Opción inválida");
         }
     }

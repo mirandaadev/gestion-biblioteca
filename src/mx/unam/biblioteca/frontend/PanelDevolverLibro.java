@@ -35,7 +35,7 @@ public class PanelDevolverLibro extends JPanel {
         this.listaUsuarios = listaUsuarios;
 
         setLayout(new BorderLayout());
-        TitledBorder border = BorderFactory.createTitledBorder("Prestar libro:");
+        TitledBorder border = BorderFactory.createTitledBorder("Devolver libro");
         border.setTitleColor(Color.BLUE);
         border.setTitleFont(new Font("Arial", Font.BOLD, 16));
         setBorder(border);

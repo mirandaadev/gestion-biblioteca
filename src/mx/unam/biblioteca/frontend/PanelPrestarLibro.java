@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -36,7 +35,7 @@ public class PanelPrestarLibro extends JPanel {
         this.listaUsuarios = listaUsuarios;
 
         setLayout(new BorderLayout());
-        TitledBorder border = BorderFactory.createTitledBorder("Prestar libro:");
+        TitledBorder border = BorderFactory.createTitledBorder("Prestar libro");
         border.setTitleColor(Color.BLUE);
         border.setTitleFont(new Font("Arial", Font.BOLD, 16));
         setBorder(border);
@@ -117,7 +116,8 @@ public class PanelPrestarLibro extends JPanel {
             idLibroE = Integer.parseInt(idLibro);
             idUsuarioE = Integer.parseInt(idUsuario);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Los IDs deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Los IDs deben ser números válidos", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -133,7 +133,8 @@ public class PanelPrestarLibro extends JPanel {
         }
 
         if (libroPrestado == null) {
-            JOptionPane.showMessageDialog(null, "El libro con el ID especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El libro con el ID especificado no existe", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -147,11 +148,14 @@ public class PanelPrestarLibro extends JPanel {
         }
 
         if (usuarioConLibro == null) {
-            JOptionPane.showMessageDialog(null, "El usuario con el ID especificado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El usuario con el ID especificado no existe", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        JOptionPane.showMessageDialog(null, "El libro '" + libroPrestado.getTitulo() + "' ha sido prestado exitosamente a " + usuarioConLibro.getNombre(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "El libro '" + libroPrestado.getTitulo()
+                + "' ha sido prestado exitosamente a " + usuarioConLibro.getNombre(), "Éxito",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void regresar() {

@@ -2,7 +2,6 @@ package mx.unam.biblioteca.backend;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import mx.unam.biblioteca.frontend.BibliotecaGUI;
 
 public class Biblioteca {
