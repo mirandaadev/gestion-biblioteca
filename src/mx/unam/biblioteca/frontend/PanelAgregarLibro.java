@@ -6,7 +6,11 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-
+import java.awt.Insets;
+import java.awt.Window;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,15 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-
-import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.BorderFactory;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-
-import java.awt.Window;
-
 import mx.unam.biblioteca.backend.Autor;
 import mx.unam.biblioteca.backend.Libro;
 
@@ -37,39 +34,35 @@ public class PanelAgregarLibro extends JPanel {
     private final JLabel lbGenero;
     private final JLabel lbAnio;
     private final JLabel lbNumAutores;
-
     private final JPanel autoresPanel;
-
     private final List<Autor> autores;
-
     private final List<JTextField[]> camposAutores;
-
     private final List<Libro> listaLibros;
-
     private final BibliotecaGUI ventanaPrincipal;
 
     public PanelAgregarLibro(List<Libro> listaLibros, BibliotecaGUI ventanaPrincipal) {
         this.listaLibros = listaLibros;
         this.ventanaPrincipal = ventanaPrincipal;
+        this.autoresPanel = new JPanel(new GridBagLayout());
 
+        autores = new ArrayList<>();
+        camposAutores = new ArrayList<>();
         setLayout(new BorderLayout());
+
+        JPanel panelAgregar = new JPanel(new GridBagLayout());
+        panelAgregar.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         TitledBorder border = BorderFactory.createTitledBorder("Agregar libro");
         border.setTitleFont(new Font("Arial", Font.BOLD, 16));
-        border.setTitleColor(Color.BLUE);
+        border.setTitleColor(Color.DARK_GRAY);
         border.setTitleJustification(TitledBorder.LEFT);
         setBorder(border);
 
-        JPanel panelLibro = new JPanel(new GridBagLayout());
-
-        this.autoresPanel = new JPanel(new GridBagLayout());
-        autores = new ArrayList<>();
-        camposAutores = new ArrayList<>();
-
         TitledBorder borderAutores = BorderFactory.createTitledBorder("Autores del Libro");
+        autoresPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         borderAutores.setTitleFont(new Font("Arial", Font.BOLD, 16));
-        borderAutores.setTitleColor(Color.ORANGE);
-        borderAutores.setTitleJustification(TitledBorder.RIGHT);
+        borderAutores.setTitleColor(Color.DARK_GRAY);
+        borderAutores.setTitleJustification(TitledBorder.LEFT);
         this.autoresPanel.setBorder(borderAutores);
 
         lbTitulo = new JLabel("Titulo: ");
@@ -107,57 +100,57 @@ public class PanelAgregarLibro extends JPanel {
         gbcLibro.gridy = 0;
         gbcLibro.anchor = GridBagConstraints.WEST;
         gbcLibro.weightx = 0;
-        panelLibro.add(lbTitulo, gbcLibro);
+        panelAgregar.add(lbTitulo, gbcLibro);
 
         gbcLibro.gridx = 1;
         gbcLibro.gridy = 0;
         gbcLibro.fill = GridBagConstraints.HORIZONTAL;
         gbcLibro.weightx = 1.0;
-        panelLibro.add(txtTitulo, gbcLibro);
+        panelAgregar.add(txtTitulo, gbcLibro);
 
         gbcLibro.gridx = 0;
         gbcLibro.gridy = 1;
         gbcLibro.fill = GridBagConstraints.NONE;
         gbcLibro.weightx = 0;
-        panelLibro.add(lbGenero, gbcLibro);
+        panelAgregar.add(lbGenero, gbcLibro);
 
         gbcLibro.gridx = 1;
         gbcLibro.gridy = 1;
         gbcLibro.fill = GridBagConstraints.HORIZONTAL;
         gbcLibro.weightx = 1.0;
-        panelLibro.add(txtGenero, gbcLibro);
+        panelAgregar.add(txtGenero, gbcLibro);
 
         gbcLibro.gridx = 0;
         gbcLibro.gridy = 2;
         gbcLibro.fill = GridBagConstraints.NONE;
         gbcLibro.weightx = 0;
-        panelLibro.add(lbAnio, gbcLibro);
+        panelAgregar.add(lbAnio, gbcLibro);
 
         gbcLibro.gridx = 1;
         gbcLibro.gridy = 2;
         gbcLibro.fill = GridBagConstraints.HORIZONTAL;
         gbcLibro.weightx = 1.0;
-        panelLibro.add(txtAnio, gbcLibro);
+        panelAgregar.add(txtAnio, gbcLibro);
 
         gbcLibro.gridx = 0;
         gbcLibro.gridy = 3;
         gbcLibro.fill = GridBagConstraints.NONE;
         gbcLibro.weightx = 0;
-        panelLibro.add(lbNumAutores, gbcLibro);
+        panelAgregar.add(lbNumAutores, gbcLibro);
 
         gbcLibro.gridx = 1;
         gbcLibro.gridy = 3;
         gbcLibro.fill = GridBagConstraints.HORIZONTAL;
         gbcLibro.weightx = 1.0;
-        panelLibro.add(txtNumAutores, gbcLibro);
+        panelAgregar.add(txtNumAutores, gbcLibro);
 
         gbcLibro.gridx = 1;
         gbcLibro.gridy = 4;
         gbcLibro.anchor = GridBagConstraints.WEST;
         gbcLibro.weightx = 0;
-        panelLibro.add(agregarAutorBtn, gbcLibro);
+        panelAgregar.add(agregarAutorBtn, gbcLibro);
 
-        add(panelLibro, BorderLayout.NORTH);
+        add(panelAgregar, BorderLayout.NORTH);
 
         JScrollPane scrollPane = new JScrollPane(this.autoresPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());

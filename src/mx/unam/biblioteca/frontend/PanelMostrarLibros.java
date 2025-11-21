@@ -21,11 +21,11 @@ public class PanelMostrarLibros extends JPanel {
 
         setLayout(new BorderLayout());
         TitledBorder border = BorderFactory.createTitledBorder("Catálogo de Libros");
-        border.setTitleColor(Color.BLUE);
+        border.setTitleColor(Color.DARK_GRAY);
         border.setTitleFont(new Font("Arial", Font.BOLD, 16));
         setBorder(border);
 
-        String[] columnas = { "ID", "Título", "Género", "Año", "Autores", "Disponible" };
+        String[] columnas = { "ID", "Título", "Género", "Año", "Autores", "Estado" };
 
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
@@ -61,7 +61,7 @@ public class PanelMostrarLibros extends JPanel {
         for (Libro libro : listaLibros) {
 
             String autoresString = libro.getAutores().stream()
-                    .map(a -> a.getNombre()+ " " + a.getApellidos())
+                    .map(a -> a.getNombre() + " " + a.getApellidos())
                     .collect(Collectors.joining(", "));
 
             if (autoresString.isEmpty())
@@ -73,7 +73,7 @@ public class PanelMostrarLibros extends JPanel {
                     libro.getGenero(),
                     libro.getAnioPublicacion(),
                     autoresString,
-                    libro.isEstado() ? "Sí" : "Prestado"
+                    libro.isEstado() ? "Disponible" : "No disponible"
             };
 
             modeloTabla.addRow(fila);

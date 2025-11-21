@@ -33,6 +33,10 @@ public class Usuario {
         this.librosPrestados = librosPrestados;
     }
 
+    public void agregarLibroPrestado(Libro libro) {
+        librosPrestados.add(libro);
+    }
+
     @Override
     public String toString() {
         String mostrar = "Id del usuario: "

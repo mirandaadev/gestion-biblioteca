@@ -6,7 +6,7 @@ import mx.unam.biblioteca.backend.Biblioteca;
 
 public final class BibliotecaGUI extends JFrame {
 
-    private final transient Biblioteca biblioteca;
+    private final Biblioteca biblioteca;
 
     public BibliotecaGUI(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
@@ -22,22 +22,31 @@ public final class BibliotecaGUI extends JFrame {
     public void manejarOpcion(int opc) {
         switch (opc) {
             case 1 -> {
-                PanelAgregarLibro panelAgregarLibro = new PanelAgregarLibro(biblioteca.getListaLibros(), this);
-                mostrarPanel(panelAgregarLibro);
+                PanelAgregarLibro pal = new PanelAgregarLibro(biblioteca.getListaLibros(), this);
+                mostrarPanel(pal);
             }
             case 2 -> {
-                PanelMostrarLibros panelMostrarLibros = new PanelMostrarLibros(biblioteca.getListaLibros(), this);
-                mostrarPanel(panelMostrarLibros);
+                PanelMostrarLibros pml = new PanelMostrarLibros(biblioteca.getListaLibros(), this);
+                mostrarPanel(pml);
             }
-            case 3 -> biblioteca.buscarLibro();
-            case 4 -> biblioteca.prestarLibro();
-            case 5 -> biblioteca.devolverLibro();
-            case 6 -> biblioteca.registrarUsuario();
-            case 7 -> biblioteca.mostrarUsuarios();
-            case 8 -> biblioteca.buscarUsuario();
-            case 9 -> {
-                JOptionPane.showMessageDialog(null, "Saliendo...");
+            case 3 -> {
+                PanelBuscarLibro pbl = new PanelBuscarLibro(biblioteca.getListaLibros(), this);
+                mostrarPanel(pbl);
             }
+            case 4 -> {
+                PanelPrestarLibro ppl = new PanelPrestarLibro(biblioteca.getListaLibros(),
+                        biblioteca.getListaUsuarios(), this);
+                mostrarPanel(ppl);
+            }
+            case 5 -> {
+                PanelDevolverLibro pdl = new PanelDevolverLibro(biblioteca.getListaLibros(),
+                        biblioteca.getListaUsuarios(), this);
+                mostrarPanel(pdl);
+            }
+            // case 6 -> biblioteca.registrarUsuario();
+            // case 7 -> biblioteca.mostrarUsuarios();
+            // case 8 -> biblioteca.buscarUsuario();
+            // case 9 -> JOptionPane.showMessageDialog(null, "Saliendo...");
             default -> JOptionPane.showMessageDialog(null, "Opción inválida");
         }
     }
@@ -66,7 +75,6 @@ public final class BibliotecaGUI extends JFrame {
         getContentPane().removeAll();
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(panel, BorderLayout.CENTER);
-        pack();
         revalidate();
         repaint();
     }

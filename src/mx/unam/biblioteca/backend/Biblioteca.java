@@ -9,10 +9,6 @@ public class Biblioteca {
 
     private BibliotecaGUI gui;
 
-    public void setGUI(BibliotecaGUI gui) {
-        this.gui = gui;
-    }
-
     private final List<Libro> listaLibros;
     private final List<Libro> listaLibrosPrestados;
     private final List<Usuario> listaUsuarios;
@@ -73,121 +69,16 @@ public class Biblioteca {
 
     }
 
+    public void setGUI(BibliotecaGUI gui) {
+        this.gui = gui;
+    }
+
     public List<Libro> getListaLibros() {
         return listaLibros;
     }
 
-    public Libro buscarLibro() {
-        if (listaLibros.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay libros para buscar");
-            return null;
-        } else {
-            int idLibro = 0;
-            do {
-                try {
-                    idLibro = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del libro:"));
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Formato incorrecto");
-                }
-                if (idLibro <= 0) {
-                    JOptionPane.showMessageDialog(null, "Ingrese un ID válido");
-                }
-            } while (idLibro <= 0);
-
-            for (Libro libro : listaLibros) {
-                if (libro.getId() == idLibro) {
-                    JOptionPane.showMessageDialog(null, libro.toString());
-                    return libro;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public Libro buscarLibroPrestado(int idLibro) {
-        for (Libro libro : listaLibros) {
-            if (libro.getId() == idLibro) {
-                JOptionPane.showMessageDialog(null, libro.toString());
-                return libro;
-            }
-
-        }
-        return null;
-    }
-
-    public void prestarLibro() {
-        if (listaLibros.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay libros registrados");
-        } else {
-            int idLibro;
-            idLibro = Integer.parseInt(JOptionPane.showInputDialog("Id del libro: "));
-            for (Libro libro : listaLibros) {
-                if (libro.getId() == idLibro) {
-                    libro.setEstado(false);
-                    listaLibrosPrestados.add(libro);
-                    buscarLibroPrestado(idLibro);
-                }
-            }
-        }
-
-    }
-
-    public void devolverLibro() {
-        if (listaLibrosPrestados.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay libros prestados");
-        } else {
-            int idLibro;
-            idLibro = Integer.parseInt(JOptionPane.showInputDialog("Id del libro: "));
-            for (Libro libro : listaLibros) {
-                if (libro.getId() == idLibro) {
-                    libro.setEstado(true);
-                    buscarLibroPrestado(idLibro);
-                }
-            }
-        }
-    }
-
-    public void registrarUsuario() {
-        Usuario usuario = new Usuario();
-        String nombre;
-        do {
-            nombre = JOptionPane.showInputDialog(null, "Introduzca  el nombre del usuario: ");
-            if (nombre == null || nombre.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El nombre no puede estar vacío");
-            }
-        } while (nombre == null || nombre.trim().isEmpty());
-        usuario.setNombre(nombre);
-        listaUsuarios.add(usuario);
-    }
-
-    public void mostrarUsuarios() {
-        if (listaUsuarios.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay usuarios para mostrar");
-        } else {
-            for (Usuario usuario : listaUsuarios) {
-                JOptionPane.showMessageDialog(null,
-                        usuario.toString());
-            }
-        }
-
-    }
-
-    public Usuario buscarUsuario() {
-        if (listaUsuarios.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay usuarios para buscar");
-            return null;
-        } else {
-            int idUsuario = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el id del usuario:"));
-            for (Usuario usuario : listaUsuarios) {
-                if (usuario.getId() == idUsuario) {
-                    JOptionPane.showMessageDialog(null, "Id: " + usuario.getId() + "\nNombre: " + usuario.getNombre());
-                    return usuario;
-                }
-            }
-
-        }
-        return null;
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
     }
 
 }
