@@ -100,7 +100,7 @@ public class PanelPrestarLibro extends JPanel {
         String idUsuario = txtIdUsuario.getText();
 
         if (listaUsuarios == null || listaUsuarios.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay usuarios registrados", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No hay libros prestados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

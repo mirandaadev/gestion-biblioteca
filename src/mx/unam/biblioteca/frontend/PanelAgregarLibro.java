@@ -171,7 +171,6 @@ public class PanelAgregarLibro extends JPanel {
     }
 
     private void agregarAutores() {
-
         autoresPanel.removeAll();
         autores.clear();
         camposAutores.clear();
