@@ -22,7 +22,8 @@ public class Biblioteca {
         l1.setTitulo("Cien años de soledad");
         l1.setGenero("Realismo mágico");
         l1.setAnioPublicacion(1967);
-        l1.setEstado(true);
+        l1.setCopiasTotales(3); // Ejemplo: 3 copias totales
+        l1.setCopiasDisponibles(3); // 3 disponibles
         l1.getAutores().add(new Autor("Gabriel", "García Márquez"));
         l1.asignarId();
 
@@ -30,7 +31,8 @@ public class Biblioteca {
         l2.setTitulo("Buenos presagios");
         l2.setGenero("Fantasía");
         l2.setAnioPublicacion(1990);
-        l2.setEstado(true);
+        l2.setCopiasTotales(2); 
+        l2.setCopiasDisponibles(2); 
         l2.getAutores().add(new Autor("Neil", "Gaiman"));
         l2.getAutores().add(new Autor("Terry", "Pratchett"));
         l2.asignarId();
@@ -39,7 +41,8 @@ public class Biblioteca {
         l3.setTitulo("1984");
         l3.setGenero("Distopía");
         l3.setAnioPublicacion(1949);
-        l3.setEstado(true);
+        l3.setCopiasTotales(1); 
+        l3.setCopiasDisponibles(1); 
         l3.getAutores().add(new Autor("George", "Orwell"));
         l3.asignarId();
 
@@ -47,7 +50,8 @@ public class Biblioteca {
         l4.setTitulo("El hombre que calculaba");
         l4.setGenero("Aventura / Matemática");
         l4.setAnioPublicacion(1938);
-        l4.setEstado(true);
+        l4.setCopiasTotales(4); 
+        l4.setCopiasDisponibles(4); 
         l4.getAutores().add(new Autor("Malba", "Tahan"));
         l4.getAutores().add(new Autor("Julio", "César de Mello e Souza"));
         l4.asignarId();
@@ -56,7 +60,8 @@ public class Biblioteca {
         l5.setTitulo("Fahrenheit 451");
         l5.setGenero("Ciencia ficción");
         l5.setAnioPublicacion(1953);
-        l5.setEstado(true);
+        l5.setCopiasTotales(2); 
+        l5.setCopiasDisponibles(2); 
         l5.getAutores().add(new Autor("Ray", "Bradbury"));
         l5.asignarId();
 
