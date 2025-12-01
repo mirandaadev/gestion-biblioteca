@@ -28,7 +28,7 @@ public class PanelBuscarUsuario extends JPanel {
 
         
         JPanel panelBuscar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelBuscar.setBorder(new EmptyBorder(10, 10, 0, 10));
+        panelBuscar.setBorder(new EmptyBorder(10, 10, 30, 10));
         
         JLabel lbID = new JLabel("ID de Usuario: ");
         txtID = new JTextField(20);
