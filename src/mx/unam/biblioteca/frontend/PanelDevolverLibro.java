@@ -95,68 +95,61 @@ public class PanelDevolverLibro extends JPanel {
 
     }
 
-    private void devolverLibro() {
-        String idLibro = txtIdLibro.getText();
-        String idUsuario = txtIdUsuario.getText();
+   
+private void devolverLibro() {
+    String strIdLibro = txtIdLibro.getText().trim();
+    String strIdUsuario = txtIdUsuario.getText().trim();
 
-        if (listaUsuarios == null || listaUsuarios.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay usuarios registrados", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (idLibro.isEmpty() || idUsuario.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos los campos deben estar llenos", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int idLibroE;
-        int idUsuarioE;
-        try {
-            idLibroE = Integer.parseInt(idLibro);
-            idUsuarioE = Integer.parseInt(idUsuario);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Los IDs deben ser números válidos", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Libro libroPrestado = null;
-
-        for (Libro libro : listaLibros) {
-            if (libro.getId() == idLibroE) {
-                libro.setEstado(true);
-                libroPrestado = libro;
-                System.out.println("Libro encontrado y prestado: " + libro.getTitulo());
-                break;
-            }
-        }
-
-        if (libroPrestado == null) {
-            JOptionPane.showMessageDialog(null, "El libro con el ID especificado no existe", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Usuario usuarioConLibro = null;
-        for (Usuario usuario : listaUsuarios) {
-            if (usuario.getId() == idUsuarioE) {
-                usuarioConLibro = usuario;
-                System.out.println("Usuario encontrado: " + usuario.getNombre());
-                break;
-            }
-        }
-
-        if (usuarioConLibro == null) {
-            JOptionPane.showMessageDialog(null, "El usuario con el ID especificado no existe", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        JOptionPane.showMessageDialog(null, "El libro '" + libroPrestado.getTitulo()
-                + "' ha sido prestado exitosamente a " + usuarioConLibro.getNombre(), "Éxito",
-                JOptionPane.INFORMATION_MESSAGE);
+    if (strIdLibro.isEmpty() || strIdUsuario.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe ingresar el ID del Libro y del Usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
+
+    try {
+        int idLibro = Integer.parseInt(strIdLibro);
+        int idUsuario = Integer.parseInt(strIdUsuario);
+
+       
+        Libro libro = null;
+        for (Libro l : listaLibros) {
+            if (l.getId() == idLibro) {
+                libro = l;
+                break;
+            }
+        }
+
+       
+        Usuario usuario = null;
+        for (Usuario u : listaUsuarios) {
+            if (u.getId() == idUsuario) {
+                usuario = u;
+                break;
+            }
+        }
+
+        if (libro == null || usuario == null) {
+            JOptionPane.showMessageDialog(this, "Libro o Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
+        boolean removido = usuario.getLibrosPrestados().removeIf(l -> l.getId() == idLibro);
+        
+        if (removido) {
+            
+            libro.setCopiasDisponibles(libro.getCopiasDisponibles() + 1);
+
+            JOptionPane.showMessageDialog(this, "Devolución exitosa. Libro '" + libro.getTitulo() + "' devuelto por " + usuario.getNombre(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            txtIdLibro.setText("");
+            txtIdUsuario.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "El usuario no tiene prestado el Libro ID: " + libro.getId(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Los ID deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
 
     public void regresar() {
         if (ventanaPrincipal != null) {

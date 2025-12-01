@@ -9,12 +9,15 @@ public class Libro {
     private String titulo;
     private String genero;
     private int anioPublicacion;
-    private boolean estado;
+    private int copiasTotales; 
+    private int copiasDisponibles; 
     private List<Autor> autores;
 
     public Libro() {
         this.autores = new ArrayList<>();
         this.id = ++contLibro;
+        this.copiasTotales = 1; 
+        this.copiasDisponibles = 1; 
     }
 
     public void asignarId() {
@@ -29,7 +32,6 @@ public class Libro {
 
     public void eliminarAutor() {
         autores.removeFirst();
-
     }
 
     public void setId(int id) {
@@ -63,13 +65,33 @@ public class Libro {
     public void setAnioPublicacion(int anioPublicacion) {
         this.anioPublicacion = anioPublicacion;
     }
+    
+  
 
-    public boolean isEstado() {
-        return estado;
+    public int getCopiasTotales() {
+        return copiasTotales;
     }
 
+    public void setCopiasTotales(int copiasTotales) {
+        this.copiasTotales = copiasTotales;
+    }
+
+    public int getCopiasDisponibles() {
+        return copiasDisponibles;
+    }
+
+    public void setCopiasDisponibles(int copiasDisponibles) {
+        this.copiasDisponibles = copiasDisponibles;
+    }
+
+    
+    public boolean isEstado() {
+        return copiasDisponibles > 0;
+    }
+    
+   
     public void setEstado(boolean estado) {
-        this.estado = estado;
+        
     }
 
     public List<Autor> getAutores() {
@@ -86,7 +108,7 @@ public class Libro {
                 "\nTítulo: " + (this.getTitulo() == null ? "" : this.getTitulo()) +
                 "\nGénero: " + (this.getGenero() == null ? "" : this.getGenero()) +
                 "\nAño de Publicación: " + this.getAnioPublicacion() +
-                "\nEstado: " + (this.isEstado() ? "Disponible" : "No disponible") +
+                "\nCopias Disponibles: " + this.getCopiasDisponibles() + // Actualizado
                 "\n";
 
         if (this.getAutores() != null && !this.getAutores().isEmpty()) {
