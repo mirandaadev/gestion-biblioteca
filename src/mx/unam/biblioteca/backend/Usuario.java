@@ -1,5 +1,6 @@
 package mx.unam.biblioteca.backend;
 
+import java.util.ArrayList; 
 import java.util.List;
 
 public class Usuario {
@@ -11,6 +12,7 @@ public class Usuario {
 
     public Usuario() {
         this.id = ++contUsuario;
+        this.librosPrestados = new ArrayList<>(); 
     }
 
     public String getNombre() {

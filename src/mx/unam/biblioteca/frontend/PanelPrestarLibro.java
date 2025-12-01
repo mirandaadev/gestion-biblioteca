@@ -95,10 +95,12 @@ public class PanelPrestarLibro extends JPanel {
 
     }
 
-    private void prestarLibro() {
-        String idLibro = txtIdLibro.getText();
-        String idUsuario = txtIdUsuario.getText();
+  
+private void prestarLibro() {
+    String strIdLibro = txtIdLibro.getText().trim();
+    String strIdUsuario = txtIdUsuario.getText().trim();
 
+<<<<<<< HEAD
         if (listaUsuarios == null || listaUsuarios.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay libros prestados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -156,7 +158,64 @@ public class PanelPrestarLibro extends JPanel {
         JOptionPane.showMessageDialog(null, "El libro '" + libroPrestado.getTitulo()
                 + "' ha sido prestado exitosamente a " + usuarioConLibro.getNombre(), "Éxito",
                 JOptionPane.INFORMATION_MESSAGE);
+=======
+    if (strIdLibro.isEmpty() || strIdUsuario.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe ingresar el ID del Libro y del Usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+>>>>>>> d37166a5e4161ba06b6a508ffdc69d6785289872
     }
+
+    try {
+        int idLibro = Integer.parseInt(strIdLibro);
+        int idUsuario = Integer.parseInt(strIdUsuario);
+
+        
+        Libro libro = null;
+        for (Libro l : listaLibros) {
+            if (l.getId() == idLibro) {
+                libro = l;
+                break;
+            }
+        }
+
+        
+        Usuario usuario = null;
+        for (Usuario u : listaUsuarios) {
+            if (u.getId() == idUsuario) {
+                usuario = u;
+                break;
+            }
+        }
+
+        if (libro == null) {
+            JOptionPane.showMessageDialog(this, "Libro no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (usuario == null) {
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        
+        if (libro.getCopiasDisponibles() > 0) {
+            
+            libro.setCopiasDisponibles(libro.getCopiasDisponibles() - 1);
+            
+            
+            usuario.getLibrosPrestados().add(libro);
+
+            JOptionPane.showMessageDialog(this, "Préstamo exitoso. '" + libro.getTitulo() + "' prestado a " + usuario.getNombre(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            txtIdLibro.setText("");
+            txtIdUsuario.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay copias disponibles de este libro.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Los ID deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
 
     public void regresar() {
         if (ventanaPrincipal != null) {

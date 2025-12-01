@@ -1,13 +1,9 @@
 package mx.unam.biblioteca.frontend;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.*;
 import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import mx.unam.biblioteca.backend.Usuario;
 
@@ -15,25 +11,76 @@ public class PanelRegistrarUsuario extends JPanel {
 
     private final BibliotecaGUI ventanaPrincipal;
     private final List<Usuario> listaUsuarios;
+    private final JTextField txtNombre;
 
     public PanelRegistrarUsuario(List<Usuario> listaUsuarios, BibliotecaGUI ventanaPrincipal) {
         this.listaUsuarios = listaUsuarios;
         this.ventanaPrincipal = ventanaPrincipal;
 
         setLayout(new BorderLayout());
-        TitledBorder border = BorderFactory.createTitledBorder("Registrar usuario");
+        
+        
+        JPanel panelFormulario = new JPanel(new GridBagLayout());
+        panelFormulario.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        TitledBorder border = BorderFactory.createTitledBorder("Registrar Nuevo Usuario");
         border.setTitleColor(Color.BLUE);
         border.setTitleFont(new Font("Arial", Font.BOLD, 16));
         setBorder(border);
 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        JLabel lbNombre = new JLabel("Nombre completo:");
+        txtNombre = new JTextField(25);
+
+        JButton btnGuardar = new JButton("Registrar");
+        btnGuardar.addActionListener(e -> registrarUsuario());
+
+        
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        panelFormulario.add(lbNombre, gbc);
+
+        
+        gbc.gridx = 0; gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panelFormulario.add(txtNombre, gbc);
+
+        
+        gbc.gridx = 0; gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panelFormulario.add(btnGuardar, gbc);
+
+        add(panelFormulario, BorderLayout.CENTER);
+
+        
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        panelInferior.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-        add(panelInferior, BorderLayout.SOUTH);
-
         JButton regresarBtn = new JButton("Regresar");
         regresarBtn.addActionListener(e -> regresar());
         panelInferior.add(regresarBtn);
+
+        add(panelInferior, BorderLayout.SOUTH);
+    }
+
+    private void registrarUsuario() {
+        String nombre = txtNombre.getText().trim();
+
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setNombre(nombre);
+        
+        
+        
+        listaUsuarios.add(nuevoUsuario);
+
+        JOptionPane.showMessageDialog(this, "Usuario registrado con ID: " + nuevoUsuario.getId());
+        txtNombre.setText(""); 
     }
 
     public void regresar() {
@@ -41,5 +88,4 @@ public class PanelRegistrarUsuario extends JPanel {
             ventanaPrincipal.mostrarMenuPrincipal();
         }
     }
-
 }
