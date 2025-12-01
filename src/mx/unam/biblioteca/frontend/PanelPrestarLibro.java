@@ -134,7 +134,6 @@ public class PanelPrestarLibro extends JPanel {
                 JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
             if (libro.getCopiasDisponibles() > 0) {
 
                 libro.setCopiasDisponibles(libro.getCopiasDisponibles() - 1);
@@ -155,6 +154,7 @@ public class PanelPrestarLibro extends JPanel {
             JOptionPane.showMessageDialog(this, "Los ID deben ser números enteros.", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     public void regresar() {
