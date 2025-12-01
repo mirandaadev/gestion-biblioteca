@@ -22,14 +22,13 @@ public class PanelBuscarUsuario extends JPanel {
 
         setLayout(new BorderLayout());
         TitledBorder border = BorderFactory.createTitledBorder("Buscar Usuario");
-        border.setTitleColor(Color.BLUE);
+        border.setTitleColor(Color.DARK_GRAY);
         border.setTitleFont(new Font("Arial", Font.BOLD, 16));
         setBorder(border);
 
-        
-        JPanel panelBuscar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        panelBuscar.setBorder(new EmptyBorder(10, 10, 30, 10));
-        
+        JPanel panelBuscar = new JPanel(new GridLayout(1, 3, 10, 10));
+        panelBuscar.setBorder(new EmptyBorder(10, 10, 10, 10));
+
         JLabel lbID = new JLabel("ID de Usuario: ");
         txtID = new JTextField(20);
         JButton btnBuscar = new JButton("Buscar");
@@ -41,12 +40,10 @@ public class PanelBuscarUsuario extends JPanel {
 
         add(panelBuscar, BorderLayout.NORTH);
 
-        
         panelInfoUsuario = new JPanel(new GridBagLayout());
-        panelInfoUsuario.setBorder(BorderFactory.createTitledBorder("Datos del Usuario Encontrado"));
+        panelInfoUsuario.setBorder(BorderFactory.createTitledBorder("Datos del Usuario"));
         add(panelInfoUsuario, BorderLayout.CENTER);
 
-        
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelInferior.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         JButton regresarBtn = new JButton("Regresar");
@@ -57,6 +54,7 @@ public class PanelBuscarUsuario extends JPanel {
     }
 
     private void buscarUsuario() {
+ 
         String textoId = txtID.getText().trim();
 
         if (textoId.isEmpty()) {
@@ -85,9 +83,10 @@ public class PanelBuscarUsuario extends JPanel {
 
     private void actualizarPanelResultados(Usuario usuario) {
         panelInfoUsuario.removeAll();
-        
+
         if (usuario == null) {
-            JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Información",
+                    JOptionPane.INFORMATION_MESSAGE);
             panelInfoUsuario.revalidate();
             panelInfoUsuario.repaint();
             return;
@@ -96,19 +95,18 @@ public class PanelBuscarUsuario extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.gridx = 0; 
-        
-        
-        gbc.gridy = 0;
-        panelInfoUsuario.add(new JLabel("ID: " + usuario.getId()), gbc);
+        gbc.gridx = 0;
 
-        
+        gbc.gridy = 0;
+        JLabel lblId = new JLabel("ID: " + usuario.getId());
+        lblId.setFont(lblId.getFont().deriveFont(Font.PLAIN));
+        panelInfoUsuario.add(lblId, gbc);
+
         gbc.gridy = 1;
         JLabel lblNombre = new JLabel("Nombre: " + usuario.getNombre());
-        lblNombre.setFont(new Font("Arial", Font.BOLD, 14));
+        lblNombre.setFont(lblNombre.getFont().deriveFont(Font.PLAIN));
         panelInfoUsuario.add(lblNombre, gbc);
 
-        
         gbc.gridy = 2;
         String librosTexto = "Sin libros prestados";
         if (usuario.getLibrosPrestados() != null && !usuario.getLibrosPrestados().isEmpty()) {
@@ -116,15 +114,14 @@ public class PanelBuscarUsuario extends JPanel {
                     .map(Libro::getTitulo)
                     .collect(Collectors.joining(", "));
         }
-        
-        
+
         JTextArea areaLibros = new JTextArea("Libros prestados: " + librosTexto);
         areaLibros.setLineWrap(true);
         areaLibros.setWrapStyleWord(true);
         areaLibros.setEditable(false);
         areaLibros.setBackground(panelInfoUsuario.getBackground());
-        areaLibros.setPreferredSize(new Dimension(300, 60)); 
-        
+        areaLibros.setPreferredSize(new Dimension(300, 60));
+
         panelInfoUsuario.add(areaLibros, gbc);
 
         panelInfoUsuario.revalidate();

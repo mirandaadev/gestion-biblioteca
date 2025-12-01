@@ -36,7 +36,7 @@ public class PanelDevolverLibro extends JPanel {
 
         setLayout(new BorderLayout());
         TitledBorder border = BorderFactory.createTitledBorder("Devolver libro");
-        border.setTitleColor(Color.BLUE);
+        border.setTitleColor(Color.DARK_GRAY);
         border.setTitleFont(new Font("Arial", Font.BOLD, 16));
         setBorder(border);
 
@@ -95,61 +95,63 @@ public class PanelDevolverLibro extends JPanel {
 
     }
 
-   
-private void devolverLibro() {
-    String strIdLibro = txtIdLibro.getText().trim();
-    String strIdUsuario = txtIdUsuario.getText().trim();
+    private void devolverLibro() {
+        String strIdLibro = txtIdLibro.getText().trim();
+        String strIdUsuario = txtIdUsuario.getText().trim();
 
-    if (strIdLibro.isEmpty() || strIdUsuario.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Debe ingresar el ID del Libro y del Usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    try {
-        int idLibro = Integer.parseInt(strIdLibro);
-        int idUsuario = Integer.parseInt(strIdUsuario);
-
-       
-        Libro libro = null;
-        for (Libro l : listaLibros) {
-            if (l.getId() == idLibro) {
-                libro = l;
-                break;
-            }
-        }
-
-       
-        Usuario usuario = null;
-        for (Usuario u : listaUsuarios) {
-            if (u.getId() == idUsuario) {
-                usuario = u;
-                break;
-            }
-        }
-
-        if (libro == null || usuario == null) {
-            JOptionPane.showMessageDialog(this, "Libro o Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (strIdLibro.isEmpty() || strIdUsuario.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar el ID del Libro y del Usuario.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        
-        boolean removido = usuario.getLibrosPrestados().removeIf(l -> l.getId() == idLibro);
-        
-        if (removido) {
-            
-            libro.setCopiasDisponibles(libro.getCopiasDisponibles() + 1);
 
-            JOptionPane.showMessageDialog(this, "Devolución exitosa. Libro '" + libro.getTitulo() + "' devuelto por " + usuario.getNombre(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            txtIdLibro.setText("");
-            txtIdUsuario.setText("");
-        } else {
-            JOptionPane.showMessageDialog(this, "El usuario no tiene prestado el Libro ID: " + libro.getId(), "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            int idLibro = Integer.parseInt(strIdLibro);
+            int idUsuario = Integer.parseInt(strIdUsuario);
+
+            Libro libro = null;
+            for (Libro l : listaLibros) {
+                if (l.getId() == idLibro) {
+                    libro = l;
+                    break;
+                }
+            }
+
+            Usuario usuario = null;
+            for (Usuario u : listaUsuarios) {
+                if (u.getId() == idUsuario) {
+                    usuario = u;
+                    break;
+                }
+            }
+
+            if (libro == null || usuario == null) {
+                JOptionPane.showMessageDialog(this, "Libro o Usuario no encontrado.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            boolean removido = usuario.getLibrosPrestados().removeIf(l -> l.getId() == idLibro);
+
+            if (removido) {
+
+                libro.setCopiasDisponibles(libro.getCopiasDisponibles() + 1);
+
+                JOptionPane.showMessageDialog(this,
+                        "Devolución exitosa. Libro '" + libro.getTitulo() + "' devuelto por " + usuario.getNombre(),
+                        "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                txtIdLibro.setText("");
+                txtIdUsuario.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "El usuario no tiene prestado el Libro ID: " + libro.getId(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Los ID deben ser números enteros.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Los ID deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
 
     public void regresar() {
         if (ventanaPrincipal != null) {

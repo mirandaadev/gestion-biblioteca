@@ -20,25 +20,23 @@ public class PanelMostrarUsuarios extends JPanel {
 
         setLayout(new BorderLayout());
         TitledBorder border = BorderFactory.createTitledBorder("Directorio de Usuarios");
-        border.setTitleColor(Color.BLUE);
+        border.setTitleColor(Color.DARK_GRAY);
         border.setTitleFont(new Font("Arial", Font.BOLD, 16));
         setBorder(border);
 
-        
         String[] columnas = { "ID", "Nombre", "Libros Prestados" };
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; 
+                return false;
             }
         };
 
         tabla = new JTable(modeloTabla);
         tabla.setRowHeight(25);
-        
-        
-        tabla.getColumnModel().getColumn(0).setPreferredWidth(50); // ID pequeño
-        tabla.getColumnModel().getColumn(1).setPreferredWidth(200); // Nombre grande
+
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
 
         cargarDatos();
 
@@ -50,9 +48,12 @@ public class PanelMostrarUsuarios extends JPanel {
         regresarBtn.addActionListener(e -> regresar());
         panelInferior.add(regresarBtn);
         add(panelInferior, BorderLayout.SOUTH);
+
     }
 
     private void cargarDatos() {
+
+        modeloTabla.setRowCount(0);
         for (Usuario u : listaUsuarios) {
             int cantidadLibros = 0;
             if (u.getLibrosPrestados() != null) {
@@ -60,9 +61,9 @@ public class PanelMostrarUsuarios extends JPanel {
             }
 
             Object[] fila = {
-                u.getId(),
-                u.getNombre(),
-                cantidadLibros 
+                    u.getId(),
+                    u.getNombre(),
+                    cantidadLibros
             };
             modeloTabla.addRow(fila);
         }
